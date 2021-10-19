@@ -16,13 +16,18 @@ class SearchIndex extends React.Component {
  searchFunction = () => {
     this.setState(prevState => ({results: prevState.things.filter(thing => thing === this.state.search || this.state.search === '')}))
  }
+ componentDidUpdate(prevProps, prevState) {
+    if(prevState.search !== this.state.search) {
+      this.setState(prevState => ({results: prevState.things.filter(thing => thing === this.state.search || this.state.search === '')}))
+    }
+ }
  render() {
    return (
      <div>
        <Input placeholder='Search Here' value={this.state.search} onChange={e => this.setState({search: e.target.value})}/>
        <button onClick={this.searchFunction}>Search</button>
        <h3>Results:</h3>
-       {this.state.results.map(result => (<p key={result}>{result}</p>))}
+       {this.state.search === '' ? this.state.things.map(thing => (<p key={thing}>{thing}</p>)) : this.state.results.map(result => (<p key={result}>{result}</p>))}
      </div>
    );
  }
