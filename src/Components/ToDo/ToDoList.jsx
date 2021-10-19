@@ -12,6 +12,7 @@ class ToDoList extends React.Component {
         const name = this.newTodo.current.value;
         if(name === '') return;
         this.setState(prevState => ({todos: [...prevState.todos, {name: name, completed: false }]}))
+        this.newTodo.current.value = '';
     }
     handleToggle = todo => {
         this.setState(prevState => ({todos: [...prevState.todos.filter(curr => curr.name !== todo.name), {...todo, completed: !todo.completed}]}))
@@ -20,7 +21,6 @@ class ToDoList extends React.Component {
         this.setState(prevState => ({todos: prevState.todos.filter(curr => !curr.completed)}))
     }
     render() {
-        console.log(this.state.todos)
         return (
             <div>
                 <div>
